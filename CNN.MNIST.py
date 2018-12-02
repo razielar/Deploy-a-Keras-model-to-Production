@@ -11,9 +11,9 @@ from keras.layers import Dense, Dropout, Flatten #Dropout: normalization process
 from keras.layers import Conv2D, MaxPooling2D #Spatial convolution over images
 from keras import backend as K
 
-### Mini batch gradient descent ftw
+### Mini batch gradient descent, 128 images per batch
 batch_size = 128
-### 10 different characters 0-9
+### 10 different characters: 0-9
 num_characters = 10
 ### Number of epochs
 epochs = 12
@@ -80,7 +80,7 @@ model.add(Dense(num_characters, activation= 'softmax'))
 #categorical because: we have multiple classes (10)
 
 model.compile(loss= keras.losses.categorical_crossentropy,
-    optimizer= keras.optimizers.Adadelta(),
+    optimizer= keras.optimizers.Adadelta(),#Adaptive gradient:Adagrad, Adadelta: prevents learning rate decay
     metrics= ['accuracy'])
 
 ### Train the model:
@@ -103,8 +103,9 @@ print('Test accuracy: ', round(score[1], 4), "\n")
 
 model_json = model.to_json()
 
+#We want to save the structure of the model itself: architecture of the model
 with open("model.json", "w") as json_file:
     json_file.write(model_json)
 
-#Serialize weights to HDF5
+#Save the weights (learnings)
 model.save_weights("model.h5")
