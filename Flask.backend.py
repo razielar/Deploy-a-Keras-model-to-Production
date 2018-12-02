@@ -31,6 +31,7 @@ def convertImage(imgData1):
 
 @app.route('/')
 def index():
+	#render out pre-built HTML file right on the index page
     return render_template('index.html') #Use our html file
 
 @app.route('/predict', methods= ['GET', 'POST'])
